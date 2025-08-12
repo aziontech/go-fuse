@@ -8,6 +8,7 @@ import (
 	"context"
 	"os"
 	"path/filepath"
+	"strings"
 	"syscall"
 
 	"github.com/hanwen/go-fuse/v2/fuse"
@@ -114,7 +115,7 @@ func (n *LoopbackNode) root() *Inode {
 
 // relativePath returns the path the node, relative to to the root directory
 func (n *LoopbackNode) relativePath() string {
-	return n.Path(n.root())
+	return strings.ReplaceAll(n.Path(n.root()), "#", "/")
 }
 
 // path returns the absolute path to the node
